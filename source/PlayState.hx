@@ -1,11 +1,8 @@
 package;
 
 import flixel.FlxG;
-import js.html.File;
-import js.html.FileSystem;
 import openfl.geom.Rectangle;
 import flixel.FlxSprite;
-import js.html.Image;
 import lime.ui.FileDialog;
 import openfl.display.PNGEncoderOptions;
 import openfl.utils.ByteArray;
