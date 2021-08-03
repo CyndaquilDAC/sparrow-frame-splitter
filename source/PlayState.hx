@@ -16,6 +16,7 @@ import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
 #if sys
 import sys.io.File;
+import sys.FileSystem;
 #end
 
 class PlayState extends FlxState
@@ -30,10 +31,14 @@ class PlayState extends FlxState
 	var rectY:Float = 0;
 	var rectX:Float = 0;
 	var curFrameText:FlxText;
+	var doneExportingFrames:Bool = false;
+	var exportText:FlxText;
 	override public function create()
 	{
 		super.create();
-		add(new FlxText('Press "E" to export the next frame!', 32).screenCenter());
+		exportText = new FlxText('Press "E" to export the next frame!', 32);
+		exportText.screenCenter();
+		add(exportText);
 		frames = FlxAtlasFrames.fromSparrow(AssetPaths.sheet__png, AssetPaths.sheet__xml);
 		iHateThis = new FlxSprite().loadGraphic(AssetPaths.sheet__png);
 		daRealBitmapData = iHateThis.graphic.bitmap;
@@ -47,7 +52,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		if(FlxG.keys.justPressed.E)
+		if(FlxG.keys.justPressed.E && !doneExportingFrames)
 		{
 			rectHeight = frames.frames[currentFrame].frame.height;
 			rectWidth = frames.frames[currentFrame].frame.width;
@@ -57,6 +62,12 @@ class PlayState extends FlxState
 			saveImage(daRealBitmapData, fuckingHell);
 			currentFrame += 1;
 			curFrameText.text = Std.string(currentFrame) + ' / ' + Std.string(whatFramesEvenExist);
+			if(currentFrame == whatFramesEvenExist)
+			{
+				doneExportingFrames = true;
+				exportText.text = 'Done exporting frames!';
+				curFrameText.visible = false;
+			}
 		}
 	}
 
