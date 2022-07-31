@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Sparrow Frame Splitter" file="framesplit" main="Main" version="0.0.1" company="CyndaquilDAC" />
+	<app title="Sparrow Frame Splitter" file="Sparrow Frame Splitter" main="Main" version="0.0.2" company="Cynda" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -32,6 +32,8 @@
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
 	<assets path="assets" />
+
+	<assets path='README.md' rename='readme.txt' />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
