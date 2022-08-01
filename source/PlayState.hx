@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import flixel.FlxG;
 import openfl.geom.Rectangle;
 import flixel.FlxSprite;
@@ -14,10 +15,8 @@ import flixel.util.FlxColor;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
-#if sys
 import sys.io.File;
 import sys.FileSystem;
-#end
 
 class PlayState extends FlxState
 {
@@ -77,6 +76,6 @@ class PlayState extends FlxState
 		//shoutouts to miltoncandelero on github for writing shit im too stupid to write myself!
 		var b:ByteArray = new ByteArray();
 		b = bitmapData.encode(frameRect, new PNGEncoderOptions(true), b);
-		new FileDialog().save(b, 'png', null, 'frame');
+		new FileDialog().save(b, 'png', Sys.getCwd() + "/assets/exportedframes/", 'frame.png');
 	}
 }
