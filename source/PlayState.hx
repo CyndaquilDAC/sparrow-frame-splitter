@@ -32,14 +32,25 @@ class PlayState extends FlxState
 	var curFrameText:FlxText;
 	var doneExportingFrames:Bool = false;
 	var exportText:FlxText;
+
+	var kadunkyDunk:FlxSprite;
+
 	override public function create()
 	{
 		super.create();
 		exportText = new FlxText('Press "E" to export the next frame!', 32);
 		exportText.screenCenter();
 		add(exportText);
-		frames = FlxAtlasFrames.fromSparrow(AssetPaths.sheet__png, AssetPaths.sheet__xml);
-		iHateThis = new FlxSprite().loadGraphic(AssetPaths.sheet__png);
+		frames = Paths.getSparrowAtlas('sheet');
+		kadunkyDunk.frames = frames;
+		for(dinkyDoo in Paths.txt('anims').split('\n'))
+		{
+			kadunkyDunk.animation.addByPrefix(dinkyDoo.split('--')[0], dinkyDoo.split('--')[1], Std.parseInt(dinkyDoo.split('--')[2]), false);
+		}
+		//for(klickey in kadunkyDunk.frames)
+	//	{
+	//	}
+		iHateThis = new FlxSprite().loadGraphic(Paths.image('sheet'));
 		daRealBitmapData = iHateThis.graphic.bitmap;
 		whatFramesEvenExist = frames.frames.length;
 		curFrameText = new FlxText('0 / ' + Std.string(whatFramesEvenExist), 27);
@@ -75,7 +86,7 @@ class PlayState extends FlxState
 		//didnt write this part just usin it cuz ye
 		//shoutouts to miltoncandelero on github for writing shit im too stupid to write myself!
 		var b:ByteArray = new ByteArray();
-		b = bitmapData.encode(frameRect, new PNGEncoderOptions(true), b);
+		b = bitmapData.encode(frameRect, new PNGEncoderOptions(false), b);
 		new FileDialog().save(b, 'png', Sys.getCwd() + "/assets/exportedframes/", 'frame.png');
 	}
 }
